@@ -4,12 +4,18 @@
  * and seamless routing for clean URLs across static and web environments.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   initEnvironmentRouting();
   initMobileNavigation();
   initActiveNav();
   initContactForm();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
 /**
  * Mobile Navigation Drawer & Accessibility
