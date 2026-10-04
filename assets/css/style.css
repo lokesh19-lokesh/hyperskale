@@ -1062,6 +1062,22 @@ textarea.form-control-custom {
   padding-top: 1.5rem;
   font-size: 0.75rem;
   color: var(--color-ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-bottom-bar a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.footer-bottom-bar a:hover {
+  color: var(--color-brand);
 }
 
 /* --------------------------------------------------------------------------
