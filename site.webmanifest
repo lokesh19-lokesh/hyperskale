@@ -1,0 +1,16 @@
+{
+  "name": "Hyperskale Consulting",
+  "short_name": "Hyperskale",
+  "description": "Enterprise IT modernization, managed services, cloud, data platform modernization and digital growth consulting.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b5ed0",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

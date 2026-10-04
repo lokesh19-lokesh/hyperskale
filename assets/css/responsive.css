@@ -1,0 +1,177 @@
+/* ==========================================================================
+   HyperSkale Consulting — Responsive Stylesheet
+   Breakpoints: 320px, 375px, 425px, 576px, 768px, 992px, 1200px, 1400px+
+   ========================================================================== */
+
+/* Universal Overflow Protection */
+body, html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Touch Targets on Mobile (minimum 44x44px for accessibility) */
+@media (max-width: 767.98px) {
+  .nav-link-custom,
+  .mobile-nav-link,
+  .btn-brand-primary,
+  .btn-outline-ink,
+  .btn-banner-action,
+  .link-arrow,
+  .mobile-nav-toggle {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .mobile-nav-link {
+    width: 100%;
+  }
+
+  .cta-banner-section .btn-banner-action {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Breakpoint 320px - 374px (Small Mobile) */
+@media (max-width: 374.98px) {
+  .site-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-heading,
+  .page-title {
+    font-size: 1.875rem !important;
+  }
+
+  .section-heading-large {
+    font-size: 1.625rem !important;
+  }
+
+  .section-heading-medium {
+    font-size: 1.5rem !important;
+  }
+
+  .stat-number {
+    font-size: 1.5rem !important;
+  }
+
+  .dbaas-stat-num {
+    font-size: 1.75rem !important;
+  }
+
+  .stat-item {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .service-card {
+    padding: 1.5rem !important;
+  }
+
+  .btn-brand-primary,
+  .btn-outline-ink {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Breakpoint 375px - 575px (Standard Mobile) */
+@media (min-width: 375px) and (max-width: 575.98px) {
+  .hero-heading,
+  .page-title {
+    font-size: 2.125rem;
+  }
+
+  .section-heading-large {
+    font-size: 1.75rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .dbaas-stat-num {
+    font-size: 2rem;
+  }
+}
+
+/* Breakpoint 576px - 767px (Large Mobile / Phablet) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Breakpoint 768px - 991px (Tablet / iPad Portrait) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-inner-grid {
+    gap: 2.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-item {
+    padding: 2rem 1.25rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .border-card-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Breakpoint 992px - 1199px (Desktop / Laptop) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .hero-heading,
+  .page-title {
+    font-size: 3.25rem;
+  }
+
+  .section-heading-large {
+    font-size: 2.5rem;
+  }
+
+  .border-card-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Breakpoint 1200px - 1399px (Large Desktop) */
+@media (min-width: 1200px) {
+  .site-container {
+    max-width: 1280px;
+  }
+}
+
+/* Breakpoint 1400px+ (Ultra-wide Desktop) */
+@media (min-width: 1400px) {
+  .hero-inner-grid {
+    gap: 4rem;
+  }
+}
+
+/* Print Optimization */
+@media print {
+  .site-header,
+  .site-footer,
+  .mobile-menu-overlay,
+  .mobile-menu-drawer,
+  .cta-banner-section {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+}
