@@ -74,6 +74,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  padding-top: var(--header-height);
   font-family: var(--font-sans);
   color: var(--color-ink);
   background-color: var(--color-background);
@@ -184,14 +185,24 @@ ul, ol {
    4. Header & Navigation
    -------------------------------------------------------------------------- */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
   height: var(--header-height);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(18, 27, 41, 0.04);
+  transition: box-shadow var(--transition-base), background-color var(--transition-base);
+}
+
+.site-header.is-scrolled {
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 16px rgba(18, 27, 41, 0.08);
 }
 
 .site-header .site-container {
@@ -202,18 +213,16 @@ ul, ol {
 }
 
 .brand-logo-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
   color: var(--color-ink);
   text-decoration: none;
+  line-height: 1;
+  transition: opacity var(--transition-fast);
 }
 
 .brand-logo-link:hover {
-  color: var(--color-ink);
+  opacity: 0.85;
 }
 
 .brand-logo-link .logo-subtitle {
@@ -222,9 +231,15 @@ ul, ol {
 }
 
 .logo-svg {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.brand-logo-link:hover .logo-svg {
+  transform: scale(1.05);
 }
 
 .fill-brand {

@@ -3,10 +3,10 @@
    Breakpoints: 320px, 375px, 425px, 576px, 768px, 992px, 1200px, 1400px+
    ========================================================================== */
 
-/* Universal Overflow Protection */
-body, html {
+/* Universal Overflow Protection without breaking position: sticky */
+html, body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Touch Targets on Mobile (minimum 44x44px for accessibility) */

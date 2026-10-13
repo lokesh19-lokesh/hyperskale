@@ -9,6 +9,26 @@ function initApp() {
   initMobileNavigation();
   initActiveNav();
   initContactForm();
+  initStickyHeader();
+}
+
+/**
+ * Enhanced Sticky Header on Scroll
+ */
+function initStickyHeader() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  function updateHeader() {
+    if (window.scrollY > 8) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
 }
 
 if (document.readyState === 'loading') {
