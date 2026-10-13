@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
+  initBubbleAnimation();
 });
 
 function initScrollAnimations() {
@@ -43,4 +44,129 @@ function initScrollAnimations() {
   });
 
   animatedElements.forEach(el => observer.observe(el));
+}
+
+/**
+ * Interactive Iridescent Bubble Animation for "The Bubbles Media" Link
+ */
+function initBubbleAnimation() {
+  const bubbleLinks = document.querySelectorAll('.bubbles-media-link');
+  if (!bubbleLinks.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  bubbleLinks.forEach(link => {
+    let intervalId = null;
+    let lastMoveTime = 0;
+
+    // Create or locate the particle container
+    let container = link.querySelector('.bubble-particle-container');
+    if (!container) {
+      container = document.createElement('span');
+      container.className = 'bubble-particle-container';
+      container.setAttribute('aria-hidden', 'true');
+      link.appendChild(container);
+    }
+
+    function createBubble(offsetX) {
+      const bubble = document.createElement('span');
+      bubble.className = 'bubble-particle';
+
+      // Random diameter between 9px and 24px
+      const size = Math.floor(Math.random() * 16) + 9;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+
+      // Determine horizontal origin position
+      const rect = link.getBoundingClientRect();
+      const linkWidth = rect.width || 120;
+      let x;
+      if (typeof offsetX === 'number') {
+        x = Math.max(0, Math.min(linkWidth, offsetX)) + (Math.random() * 14 - 7);
+      } else {
+        x = Math.random() * linkWidth;
+      }
+
+      bubble.style.setProperty('--start-x', `${x.toFixed(1)}px`);
+
+      // Gentle organic sinusoidal sway left and right
+      const sway1 = (Math.random() * 16 - 8).toFixed(1);
+      const sway2 = (Math.random() * 22 - 11).toFixed(1);
+      const sway3 = (Math.random() * 24 - 12).toFixed(1);
+      bubble.style.setProperty('--sway-1', `${sway1}px`);
+      bubble.style.setProperty('--sway-2', `${sway2}px`);
+      bubble.style.setProperty('--sway-3', `${sway3}px`);
+
+      // Random float height and duration
+      const riseDistance = Math.floor(Math.random() * 35) + 50; // 50px - 85px upward
+      const duration = (Math.random() * 0.55 + 1.15).toFixed(2); // 1.15s - 1.70s
+      bubble.style.setProperty('--rise-distance', `-${riseDistance}px`);
+      bubble.style.setProperty('--bubble-duration', `${duration}s`);
+
+      container.appendChild(bubble);
+
+      // Self-cleanup upon animation completion
+      bubble.addEventListener('animationend', () => {
+        bubble.remove();
+      });
+
+      // Absolute safety timeout fallback
+      setTimeout(() => {
+        if (bubble.parentNode) {
+          bubble.remove();
+        }
+      }, 2000);
+    }
+
+    function spawnBurst(count = 6) {
+      const rect = link.getBoundingClientRect();
+      const linkWidth = rect.width || 120;
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const randomX = Math.random() * linkWidth;
+          createBubble(randomX);
+        }, i * 45);
+      }
+    }
+
+    // Hover start: initial burst + continuous stream
+    link.addEventListener('mouseenter', () => {
+      spawnBurst(6);
+      if (intervalId) clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        createBubble();
+      }, 130);
+    });
+
+    // Hover end: stop stream, let existing bubbles float away
+    link.addEventListener('mouseleave', () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    });
+
+    // Track mouse movement across the link to spawn under the cursor
+    link.addEventListener('mousemove', (e) => {
+      const now = performance.now();
+      if (now - lastMoveTime > 75) {
+        lastMoveTime = now;
+        const rect = link.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        createBubble(offsetX);
+      }
+    });
+
+    // Tap/Click celebration burst
+    link.addEventListener('click', () => {
+      spawnBurst(8);
+    });
+
+    // Mobile touch support
+    link.addEventListener('touchstart', () => {
+      spawnBurst(6);
+    }, { passive: true });
+  });
 }
