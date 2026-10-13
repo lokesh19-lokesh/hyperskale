@@ -149,7 +149,142 @@
             <a href="/services" class="btn-outline-ink">Explore services</a>
           </div>
         </div>
-        <img src="./assets/images/hero.jpg" alt="Abstract layered data planes representing modern enterprise IT architecture" width="1600" height="1104" class="hero-image"/>
+        <!-- Interactive Enterprise Architecture Animation -->
+        <div class="hero-animation-wrapper" role="region" aria-label="HyperScalar Technologies interactive enterprise architecture visualizer">
+          <!-- Dynamic Ambient Glow & Grid -->
+          <div class="hero-anim-backdrop">
+            <canvas id="heroNetworkCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+            <div class="hero-grid-overlay" aria-hidden="true"></div>
+            <div class="hero-glow-orb hero-glow-1" aria-hidden="true"></div>
+            <div class="hero-glow-orb hero-glow-2" aria-hidden="true"></div>
+          </div>
+
+          <!-- Central Architectural Core (The HyperScalar Engine) -->
+          <div class="hero-anim-stage" id="heroAnimStage">
+            <div class="hyperscalar-core">
+              <!-- Outer Orbiting Energy Rings -->
+              <div class="core-orbit core-orbit-1" aria-hidden="true">
+                <div class="orbit-particle"></div>
+              </div>
+              <div class="core-orbit core-orbit-2" aria-hidden="true">
+                <div class="orbit-particle"></div>
+              </div>
+              <div class="core-orbit core-orbit-3" aria-hidden="true"></div>
+
+              <!-- Isometric Tier Stack -->
+              <div class="core-stack">
+                <div class="core-emblem" title="HyperScalar Core Engine">
+                  <svg viewBox="0 0 32 32" class="core-brand-icon" role="img" aria-label="HyperScalar Core Symbol" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="2" width="6" height="28" fill="#ffffff" opacity="0.95"></rect>
+                    <rect x="25" y="2" width="6" height="28" fill="#38bdf8"></rect>
+                    <rect x="9" y="19" width="6" height="5" fill="#38bdf8" opacity="0.6"></rect>
+                    <rect x="17" y="14" width="6" height="5" fill="#38bdf8" opacity="0.9"></rect>
+                    <rect x="9" y="14" width="6" height="5" fill="#60a5fa"></rect>
+                    <rect x="17" y="9" width="6" height="5" fill="#ffffff" opacity="0.95"></rect>
+                  </svg>
+                  <div class="core-pulse-wave"></div>
+                </div>
+                <div class="core-base-glow"></div>
+              </div>
+
+              <!-- Glowing Connecting Data Beams -->
+              <svg class="core-data-lines" viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M 200 180 L 70 80" class="data-path data-path-1" stroke="url(#heroLineGrad1)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <path d="M 200 180 L 330 80" class="data-path data-path-2" stroke="url(#heroLineGrad2)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <path d="M 200 180 L 70 270" class="data-path data-path-3" stroke="url(#heroLineGrad3)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <path d="M 200 180 L 330 270" class="data-path data-path-4" stroke="url(#heroLineGrad4)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <defs>
+                  <linearGradient id="heroLineGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#0b5ed0" stop-opacity="0.1"/>
+                  </linearGradient>
+                  <linearGradient id="heroLineGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#0b5ed0" stop-opacity="0.1"/>
+                  </linearGradient>
+                  <linearGradient id="heroLineGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#072c73" stop-opacity="0.1"/>
+                  </linearGradient>
+                  <linearGradient id="heroLineGrad4" x1="100%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#072c73" stop-opacity="0.1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <!-- Live Telemetry Glassmorphism Badges -->
+            <div class="telemetry-badge badge-top-left" id="badgeCloud" data-pillar="cloud">
+              <div class="badge-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+              </div>
+              <div class="badge-content">
+                <div class="badge-header">
+                  <span class="badge-tag">Cloud Core</span>
+                  <span class="badge-status-dot"></span>
+                </div>
+                <p class="badge-metric">99.999% SLA</p>
+                <span class="badge-desc">Hyperscale Orchestration</span>
+              </div>
+            </div>
+
+            <div class="telemetry-badge badge-top-right" id="badgeDbaas" data-pillar="dbaas">
+              <div class="badge-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+              </div>
+              <div class="badge-content">
+                <div class="badge-header">
+                  <span class="badge-tag">DBaasNow Engine</span>
+                  <span class="badge-status-dot"></span>
+                </div>
+                <p class="badge-metric">&lt; 30 min</p>
+                <span class="badge-desc">Automated DB Lifecycle</span>
+              </div>
+            </div>
+
+            <div class="telemetry-badge badge-bottom-left" id="badgeMigration" data-pillar="modernize">
+              <div class="badge-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div class="badge-content">
+                <div class="badge-header">
+                  <span class="badge-tag">Migration</span>
+                  <span class="badge-status-dot"></span>
+                </div>
+                <p class="badge-metric">Zero Downtime</p>
+                <span class="badge-desc">Continuous Cutover</span>
+              </div>
+            </div>
+
+            <div class="telemetry-badge badge-bottom-right" id="badgeEfficiency" data-pillar="modernize">
+              <div class="badge-icon-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </div>
+              <div class="badge-content">
+                <div class="badge-header">
+                  <span class="badge-tag">Efficiency</span>
+                  <span class="badge-status-dot"></span>
+                </div>
+                <p class="badge-metric">-40% Cost Drag</p>
+                <span class="badge-desc">Enterprise Modernized</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Story Pill Bar at bottom -->
+          <div class="hero-anim-footer-bar">
+            <div class="anim-status-ticker">
+              <span class="ticker-pulse"></span>
+              <span class="ticker-text" id="heroTickerText">HyperScalar Core: Multi-Region Telemetry Stream</span>
+            </div>
+            <div class="anim-mode-pills" role="tablist" aria-label="Architecture pillars">
+              <button type="button" class="anim-pill-btn active" data-pillar="cloud" role="tab" aria-selected="true">Cloud</button>
+              <button type="button" class="anim-pill-btn" data-pillar="dbaas" role="tab" aria-selected="false">DBaasNow</button>
+              <button type="button" class="anim-pill-btn" data-pillar="modernize" role="tab" aria-selected="false">Modernization</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
