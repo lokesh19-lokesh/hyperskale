@@ -183,8 +183,8 @@ function initHeroArchitectureVisualizer() {
   const nodeSource = document.getElementById('nodeSource');
   const nodeCore = document.getElementById('nodeCore');
   const nodeTarget = document.getElementById('nodeTarget');
-  const conduit1 = document.getElementById('pathConduit1');
-  const conduit2 = document.getElementById('pathConduit2');
+  const conduit1 = document.getElementById('conduit1');
+  const conduit2 = document.getElementById('conduit2');
   
   const metricLag = document.getElementById('metricLag');
   const metricSla = document.getElementById('metricSla');
@@ -195,8 +195,6 @@ function initHeroArchitectureVisualizer() {
   const configs = {
     all: {
       activeNodes: [nodeSource, nodeCore, nodeTarget],
-      c1Stroke: 'url(#conduitGrad1)',
-      c2Stroke: 'url(#conduitGrad2)',
       lag: '0.18 ms',
       sla: '99.999%',
       provision: '< 30 min',
@@ -205,8 +203,6 @@ function initHeroArchitectureVisualizer() {
     },
     dbaas: {
       activeNodes: [nodeSource, nodeCore],
-      c1Stroke: '#0b5ed0',
-      c2Stroke: 'rgba(11, 94, 208, 0.25)',
       lag: '0.04 ms',
       sla: '99.999%',
       provision: '18 min',
@@ -215,8 +211,6 @@ function initHeroArchitectureVisualizer() {
     },
     cloud: {
       activeNodes: [nodeCore, nodeTarget],
-      c1Stroke: 'rgba(11, 94, 208, 0.25)',
-      c2Stroke: '#0284c7',
       lag: '0.12 ms',
       sla: '99.999%',
       provision: '< 15 min',
@@ -241,13 +235,21 @@ function initHeroArchitectureVisualizer() {
     [nodeSource, nodeCore, nodeTarget].forEach(node => {
       if (!node) return;
       const isActive = cfg.activeNodes.includes(node);
-      node.style.opacity = isActive ? '1' : '0.5';
+      node.style.opacity = isActive ? '1' : '0.45';
       node.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
     });
 
-    // Update SVG conduits
-    if (conduit1) conduit1.setAttribute('stroke', cfg.c1Stroke);
-    if (conduit2) conduit2.setAttribute('stroke', cfg.c2Stroke);
+    // Update pipeline flow conduits
+    if (conduit1) {
+      const active = cfg.activeNodes.includes(nodeSource) && cfg.activeNodes.includes(nodeCore);
+      conduit1.style.opacity = active ? '1' : '0.35';
+      conduit1.style.transition = 'opacity 0.3s ease';
+    }
+    if (conduit2) {
+      const active = cfg.activeNodes.includes(nodeCore) && cfg.activeNodes.includes(nodeTarget);
+      conduit2.style.opacity = active ? '1' : '0.35';
+      conduit2.style.transition = 'opacity 0.3s ease';
+    }
 
     // Update metrics with subtle update
     if (metricLag) metricLag.textContent = cfg.lag;

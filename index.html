@@ -190,49 +190,51 @@
             <!-- Subtle Technical Blueprint Grid Background -->
             <div class="topology-grid-bg" aria-hidden="true"></div>
 
-            <!-- 5-Column Architecture Topology with Precision Connectors -->
-            <div class="topology-nodes-grid">
+            <!-- 3-Tier Enterprise Architecture Flow Pipeline -->
+            <div class="topology-pipeline">
               
-              <!-- Column 1: Legacy Core Estate -->
-              <div class="topology-node-card node-source" id="nodeSource" data-stage="source">
-                <div class="node-header">
-                  <div class="node-icon-box source-icon">
+              <!-- Tier 1: Source Estate (Legacy Enterprise) -->
+              <div class="tier-card tier-source" id="nodeSource" data-stage="source">
+                <div class="tier-badge-top">LEGACY ESTATE</div>
+                <div class="tier-header">
+                  <div class="tier-icon-box source-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
                   </div>
-                  <div class="node-tag">SOURCE ESTATE</div>
+                  <div>
+                    <h4 class="tier-title">Legacy Core</h4>
+                    <span class="tier-sub">On-Prem DBs</span>
+                  </div>
                 </div>
-                <div class="node-title">Legacy Core</div>
-                <div class="node-desc">On-Prem & Siloed Databases</div>
-                <div class="node-chips">
-                  <span class="node-chip">Oracle</span>
-                  <span class="node-chip">SQL Server</span>
-                  <span class="node-chip">VM Clusters</span>
+                <div class="tier-chips">
+                  <span class="tier-chip">Oracle</span>
+                  <span class="tier-chip">SQL Server</span>
+                  <span class="tier-chip">VM Clusters</span>
                 </div>
-                <div class="node-metric-strip">
+                <div class="tier-metric-bar">
                   <span class="metric-indicator pulse-amber"></span>
-                  <span class="metric-text">48 Workloads Monitored</span>
+                  <span class="metric-text">48 Workloads</span>
                 </div>
               </div>
 
-              <!-- Pipeline Flow Connector 1: Continuous DB Replication -->
-              <div class="topology-flow-conduit conduit-1" aria-hidden="true" id="conduit1">
-                <div class="flow-track">
-                  <div class="flow-packet flow-packet-1"></div>
-                  <div class="flow-packet flow-packet-2"></div>
+              <!-- Pipeline Connector 1: Continuous DB Replication -->
+              <div class="pipeline-connector" id="conduit1" aria-hidden="true">
+                <div class="connector-track">
+                  <div class="connector-packet packet-1"></div>
+                  <div class="connector-packet packet-2"></div>
                 </div>
-                <div class="flow-arrow">
+                <div class="connector-arrow">
                   <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
                 </div>
-                <span class="flow-tag">REPLICATE</span>
+                <span class="connector-tag">SYNC</span>
               </div>
 
-              <!-- Column 2: Central HyperScalar Core (DBaasNow™ Mesh) -->
-              <div class="topology-node-card node-core is-active-pillar" id="nodeCore" data-stage="core">
+              <!-- Tier 2: Central HyperScalar Core (DBaasNow™ Mesh) -->
+              <div class="tier-card tier-core is-active-pillar" id="nodeCore" data-stage="core">
                 <div class="core-card-badge">HYPERSCALAR ENGINE</div>
-                <div class="node-header">
-                  <div class="node-icon-box core-icon">
+                <div class="tier-header">
+                  <div class="tier-icon-box core-icon">
                     <!-- HyperScalar Logo Bars SVG -->
-                    <svg viewBox="0 0 32 32" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 32 32" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect x="2" y="3" width="5.5" height="26" rx="1.5" fill="#ffffff"/>
                       <rect x="24.5" y="3" width="5.5" height="26" rx="1.5" fill="#38bdf8"/>
                       <rect x="9.5" y="18" width="5.5" height="5" rx="1" fill="#38bdf8" opacity="0.8"/>
@@ -241,51 +243,54 @@
                       <rect x="17" y="9" width="5.5" height="5" rx="1" fill="#ffffff"/>
                     </svg>
                   </div>
-                  <div class="node-tag light">AUTOMATION MESH</div>
+                  <div>
+                    <h4 class="tier-title light">DBaasNow™ Core</h4>
+                    <span class="tier-sub light">Automation Mesh</span>
+                  </div>
                 </div>
-                <div class="node-title light">DBaasNow™ Core</div>
-                <div class="node-desc light">Zero-Downtime Migration & Sync</div>
-                <div class="node-chips light">
-                  <span class="node-chip light">Automated Ops</span>
-                  <span class="node-chip light">Continuous Sync</span>
-                  <span class="node-chip light">Self-Healing</span>
+                <div class="tier-chips light">
+                  <span class="tier-chip light">Zero Downtime</span>
+                  <span class="tier-chip light">Auto-Sync</span>
+                  <span class="tier-chip light">Self-Healing</span>
                 </div>
-                <div class="node-metric-strip light">
+                <div class="tier-metric-bar light">
                   <span class="metric-indicator pulse-cyan"></span>
-                  <span class="metric-text">&lt; 30 Min Provisioning</span>
+                  <span class="metric-text">&lt; 30 Min Cutover</span>
                 </div>
               </div>
 
-              <!-- Pipeline Flow Connector 2: Cloud Modernization & Cutover -->
-              <div class="topology-flow-conduit conduit-2" aria-hidden="true" id="conduit2">
-                <div class="flow-track">
-                  <div class="flow-packet flow-packet-1"></div>
-                  <div class="flow-packet flow-packet-2"></div>
+              <!-- Pipeline Connector 2: Hyperscale Cloud Deployment -->
+              <div class="pipeline-connector" id="conduit2" aria-hidden="true">
+                <div class="connector-track">
+                  <div class="connector-packet packet-1"></div>
+                  <div class="connector-packet packet-2"></div>
                 </div>
-                <div class="flow-arrow">
+                <div class="connector-arrow">
                   <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
                 </div>
-                <span class="flow-tag">DEPLOY</span>
+                <span class="connector-tag">SCALE</span>
               </div>
 
-              <!-- Column 3: Modern Hyperscale Target -->
-              <div class="topology-node-card node-target" id="nodeTarget" data-stage="target">
-                <div class="node-header">
-                  <div class="node-icon-box target-icon">
+              <!-- Tier 3: Hyperscale Cloud Target -->
+              <div class="tier-card tier-target" id="nodeTarget" data-stage="target">
+                <div class="tier-badge-top">TARGET CLOUD</div>
+                <div class="tier-header">
+                  <div class="tier-icon-box target-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
                   </div>
-                  <div class="node-tag">TARGET STATE</div>
+                  <div>
+                    <h4 class="tier-title">Hyperscale Cloud</h4>
+                    <span class="tier-sub">AWS • Azure • GCP</span>
+                  </div>
                 </div>
-                <div class="node-title">Hyperscale Cloud</div>
-                <div class="node-desc">AWS • Azure • Google Cloud</div>
-                <div class="node-chips">
-                  <span class="node-chip">Multi-Region HA</span>
-                  <span class="node-chip">FinOps Tuned</span>
-                  <span class="node-chip">Auto-Scale</span>
+                <div class="tier-chips">
+                  <span class="tier-chip">Multi-Region HA</span>
+                  <span class="tier-chip">FinOps Tuned</span>
+                  <span class="tier-chip">Auto-Scale</span>
                 </div>
-                <div class="node-metric-strip">
+                <div class="tier-metric-bar">
                   <span class="metric-indicator pulse-green"></span>
-                  <span class="metric-text">-40% Cost Drag • Scaled</span>
+                  <span class="metric-text">-40% Cost Drag</span>
                 </div>
               </div>
 
