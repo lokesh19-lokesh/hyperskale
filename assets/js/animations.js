@@ -1,5 +1,5 @@
 /**
- * HyperSkale Consulting — Animation & Interaction Utilities
+ * HyperScalar Technologies — Animation & Interaction Utilities
  * Provides smooth, subtle scroll reveals respecting prefers-reduced-motion.
  */
 

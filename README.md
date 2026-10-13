@@ -1,6 +1,6 @@
-# HyperSkale Consulting — Website Rebuild
+# HyperScalar Technologies — Website Rebuild
 
-A high-performance, accessible, and SEO/AEO/GEO-optimized static website rebuild for **HyperSkale Consulting** (`https://hyperskale.in/`). Built strictly following the **Absolute Content Preservation Rule**, using modern HTML5, CSS3, Vanilla JavaScript, and Bootstrap 5.
+A high-performance, accessible, and SEO/AEO/GEO-optimized static website rebuild for **HyperScalar Technologies** (`https://hyperskale.in/`). Built strictly following the **Absolute Content Preservation Rule**, using modern HTML5, CSS3, Vanilla JavaScript, and Bootstrap 5.
 
 ---
 
@@ -14,7 +14,7 @@ A high-performance, accessible, and SEO/AEO/GEO-optimized static website rebuild
   - Full OpenGraph and Twitter/X metadata.
   - Granular Schema.org JSON-LD structured data on all pages (`Organization`, `WebSite`, `WebPage`, `ItemList`, `Service`, `SoftwareApplication`, `AboutPage`, `ContactPage`).
   - Search engine crawler directives via `robots.txt` and XML sitemap (`sitemap.xml`).
-  - Entity-centric architecture defining HyperSkale Consulting and DBaasNow relationships.
+  - Entity-centric architecture defining HyperScalar Technologies and DBaasNow relationships.
 - **Responsive & Accessible (WCAG 2.1 AA Compliant)**:
   - Custom responsive layout tested across 320px, 375px, 425px, 576px, 768px, 992px, 1200px, and 1400px+ viewports.
   - Zero horizontal overflow.
@@ -113,4 +113,4 @@ Visit `http://localhost:8000` in your web browser.
 ---
 
 ## 🛡️ License & Copyright
-© 2026 Hyperskale Consulting. All rights reserved.
+© 2026 HyperScalar Technologies. All rights reserved.

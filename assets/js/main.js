@@ -1,5 +1,5 @@
 /**
- * HyperSkale Consulting — Main JavaScript
+ * HyperScalar Technologies — Main JavaScript
  * Handles accessible mobile navigation, active states, contact form validation,
  * and seamless routing for clean URLs across static and web environments.
  */
