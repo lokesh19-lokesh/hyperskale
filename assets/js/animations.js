@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initBubbleAnimation();
-  initHeroArchitectureVisualizer();
+  initHeroCyberVisualizer();
 });
 
 function initScrollAnimations() {
@@ -173,146 +173,111 @@ function initBubbleAnimation() {
 }
 
 /**
- * HyperScalar Technologies — Executive Enterprise Topology Console
+ * HyperScalar Technologies — Cybernetic Cloud Architecture Visualizer (Matches Picture 1)
  */
-function initHeroArchitectureVisualizer() {
-  const consoleEl = document.querySelector('.enterprise-topology-console');
-  if (!consoleEl) return;
+function initHeroCyberVisualizer() {
+  const heroCard = document.querySelector('.cyber-hero-card');
+  if (!heroCard) return;
 
-  const tabs = consoleEl.querySelectorAll('.console-tab-btn');
-  const nodeSource = document.getElementById('nodeSource');
-  const nodeCore = document.getElementById('nodeCore');
-  const nodeTarget = document.getElementById('nodeTarget');
-  const conduit1 = document.getElementById('conduit1');
-  const conduit2 = document.getElementById('conduit2');
-  
-  const metricLag = document.getElementById('metricLag');
-  const metricSla = document.getElementById('metricSla');
-  const metricProvision = document.getElementById('metricProvision');
-  const metricSavings = document.getElementById('metricSavings');
-  const tickerMsg = document.getElementById('consoleTickerMsg');
+  const tabPills = heroCard.querySelectorAll('.cyber-tab-pill');
+  const cardCloud = document.getElementById('cardCloud');
+  const cardDbaas = document.getElementById('cardDbaas');
+  const cardMigration = document.getElementById('cardMigration');
+  const cardEfficiency = document.getElementById('cardEfficiency');
+  const centerBadge = heroCard.querySelector('.cyber-center-badge');
 
-  const configs = {
-    all: {
-      activeNodes: [nodeSource, nodeCore, nodeTarget],
-      lag: '0.18 ms',
-      sla: '99.999%',
-      provision: '< 30 min',
-      savings: '-40%',
-      ticker: 'HyperScalar Platform: Unified full-estate modernization mesh active across hybrid environments.'
+  const modes = {
+    cloud: {
+      activeCards: [cardCloud, cardEfficiency],
+      dimCards: [cardDbaas, cardMigration]
     },
     dbaas: {
-      activeNodes: [nodeSource, nodeCore],
-      lag: '0.04 ms',
-      sla: '99.999%',
-      provision: '18 min',
-      savings: '-45%',
-      ticker: 'DBaasNow™ Engine: Continuous zero-downtime replication active across Oracle & SQL Server clusters.'
+      activeCards: [cardDbaas, cardMigration],
+      dimCards: [cardCloud, cardEfficiency]
     },
-    cloud: {
-      activeNodes: [nodeCore, nodeTarget],
-      lag: '0.12 ms',
-      sla: '99.999%',
-      provision: '< 15 min',
-      savings: '-42%',
-      ticker: 'Hyperscale Cloud Mesh: Multi-region auto-scaling deployed across AWS, Azure, and Google Cloud.'
+    modernization: {
+      activeCards: [cardCloud, cardDbaas, cardMigration, cardEfficiency],
+      dimCards: []
     }
   };
 
-  let autoCycleTimer = null;
+  let autoTimer = null;
 
-  function applyPerspective(key, isUserClick = false) {
-    const cfg = configs[key] || configs.all;
+  function setMode(modeKey, isUserAction = false) {
+    const config = modes[modeKey] || modes.modernization;
 
-    // Update active tab button
-    tabs.forEach(tab => {
-      const match = tab.getAttribute('data-pillar') === key;
-      tab.classList.toggle('active', match);
-      tab.setAttribute('aria-selected', match ? 'true' : 'false');
+    // Update tab pills
+    tabPills.forEach(pill => {
+      const match = pill.getAttribute('data-mode') === modeKey;
+      pill.classList.toggle('active', match);
+      pill.setAttribute('aria-selected', match ? 'true' : 'false');
     });
 
-    // Update node styles
-    [nodeSource, nodeCore, nodeTarget].forEach(node => {
-      if (!node) return;
-      const isActive = cfg.activeNodes.includes(node);
-      node.style.opacity = isActive ? '1' : '0.45';
-      node.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+    // Update cards active/dim state
+    config.activeCards.forEach(card => {
+      if (!card) return;
+      card.classList.remove('is-dimmed');
+      card.classList.add('is-highlighted');
     });
 
-    // Update pipeline flow conduits
-    if (conduit1) {
-      const active = cfg.activeNodes.includes(nodeSource) && cfg.activeNodes.includes(nodeCore);
-      conduit1.style.opacity = active ? '1' : '0.35';
-      conduit1.style.transition = 'opacity 0.3s ease';
-    }
-    if (conduit2) {
-      const active = cfg.activeNodes.includes(nodeCore) && cfg.activeNodes.includes(nodeTarget);
-      conduit2.style.opacity = active ? '1' : '0.35';
-      conduit2.style.transition = 'opacity 0.3s ease';
-    }
+    config.dimCards.forEach(card => {
+      if (!card) return;
+      card.classList.remove('is-highlighted');
+      card.classList.add('is-dimmed');
+    });
 
-    // Update metrics with subtle update
-    if (metricLag) metricLag.textContent = cfg.lag;
-    if (metricSla) metricSla.textContent = cfg.sla;
-    if (metricProvision) metricProvision.textContent = cfg.provision;
-    if (metricSavings) metricSavings.textContent = cfg.savings;
-
-    // Update ticker text with smooth fade
-    if (tickerMsg) {
-      tickerMsg.style.opacity = '0';
-      setTimeout(() => {
-        tickerMsg.textContent = cfg.ticker;
-        tickerMsg.style.opacity = '1';
-      }, 150);
-    }
-
-    if (isUserClick && autoCycleTimer) {
-      clearInterval(autoCycleTimer);
-      autoCycleTimer = null;
+    if (isUserAction && autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
     }
   }
 
-  // Bind tab clicks
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const p = tab.getAttribute('data-pillar');
-      applyPerspective(p, true);
+  // Bind tab pill clicks
+  tabPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const mode = pill.getAttribute('data-mode');
+      setMode(mode, true);
     });
   });
 
-  // Also bind clicking on the cards themselves
-  if (nodeSource) {
-    nodeSource.style.cursor = 'pointer';
-    nodeSource.addEventListener('click', () => applyPerspective('dbaas', true));
+  // Bind card clicks
+  if (cardCloud) {
+    cardCloud.addEventListener('click', () => setMode('cloud', true));
   }
-  if (nodeCore) {
-    nodeCore.style.cursor = 'pointer';
-    nodeCore.addEventListener('click', () => applyPerspective('all', true));
+  if (cardEfficiency) {
+    cardEfficiency.addEventListener('click', () => setMode('cloud', true));
   }
-  if (nodeTarget) {
-    nodeTarget.style.cursor = 'pointer';
-    nodeTarget.addEventListener('click', () => applyPerspective('cloud', true));
+  if (cardDbaas) {
+    cardDbaas.addEventListener('click', () => setMode('dbaas', true));
+  }
+  if (cardMigration) {
+    cardMigration.addEventListener('click', () => setMode('dbaas', true));
+  }
+  if (centerBadge) {
+    centerBadge.addEventListener('click', () => setMode('modernization', true));
   }
 
-  // Auto-cycling every 6 seconds to demonstrate breadth
-  const keys = ['all', 'dbaas', 'cloud'];
+  // Subtle 3D perspective tilt on mouse movement (desktop only)
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth >= 992) {
+    heroCard.addEventListener('mousemove', (e) => {
+      const rect = heroCard.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      heroCard.style.transform = `perspective(1000px) rotateX(${(-y * 4.5).toFixed(2)}deg) rotateY(${(x * 4.5).toFixed(2)}deg)`;
+      heroCard.style.transition = 'transform 0.08s ease-out';
+    });
+
+    heroCard.addEventListener('mouseleave', () => {
+      heroCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      heroCard.style.transition = 'transform 0.4s ease-out';
+    });
+  }
+
+  // Auto cycle smoothly every 6 seconds to show all dimensions
+  const modeKeys = ['modernization', 'cloud', 'dbaas'];
   let currentIdx = 0;
-  autoCycleTimer = setInterval(() => {
-    currentIdx = (currentIdx + 1) % keys.length;
-    applyPerspective(keys[currentIdx]);
-  }, 5500);
-
-  // Subtle interactive 3D perspective tilt on hover for enterprise polish
-  consoleEl.addEventListener('mousemove', (e) => {
-    const rect = consoleEl.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    consoleEl.style.transform = `perspective(1000px) rotateX(${(-y * 3.5).toFixed(2)}deg) rotateY(${(x * 3.5).toFixed(2)}deg)`;
-    consoleEl.style.transition = 'transform 0.1s ease-out';
-  });
-
-  consoleEl.addEventListener('mouseleave', () => {
-    consoleEl.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    consoleEl.style.transition = 'transform 0.4s ease-out';
-  });
+  autoTimer = setInterval(() => {
+    currentIdx = (currentIdx + 1) % modeKeys.length;
+    setMode(modeKeys[currentIdx]);
+  }, 6000);
 }
