@@ -655,6 +655,25 @@ ul, ol {
   }
 }
 
+.dbaasnow-feature-img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md, 16px);
+  border: 1px solid rgba(11, 94, 208, 0.18);
+  box-shadow: 
+    0 20px 45px -12px rgba(7, 44, 115, 0.14),
+    0 4px 16px -4px rgba(7, 44, 115, 0.06);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+.dbaasnow-feature-img:hover {
+  transform: translateY(-3px);
+  border-color: rgba(11, 94, 208, 0.32);
+  box-shadow: 
+    0 26px 55px -10px rgba(7, 44, 115, 0.20),
+    0 8px 24px -4px rgba(7, 44, 115, 0.08);
+}
+
 /* --------------------------------------------------------------------------
    HyperScalar Technologies — Cybernetic Cloud Architecture Visualizer
    Matches Picture 1: Futuristic Deep Navy Constellation Mesh & Orbit Card
