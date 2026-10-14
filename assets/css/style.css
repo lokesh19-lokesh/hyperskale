@@ -617,15 +617,50 @@ ul, ol {
    7. Page Sections & Specific Component Layouts
    -------------------------------------------------------------------------- */
 
-/* Hero Section */
+/* Hero Section — Architectural Grid (Boxes) Background */
 .hero-section {
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--color-border);
-  background-color: var(--color-background);
+  background-color: #f8fbff;
+}
+
+/* Ambient Radial Luminous Glow (Luminous azure atmosphere matching reference) */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(ellipse 80% 55% at 50% 10%, rgba(186, 230, 253, 0.6) 0%, rgba(224, 242, 254, 0.32) 40%, rgba(248, 251, 255, 0) 80%),
+    radial-gradient(circle at 10% 35%, rgba(219, 234, 254, 0.4) 0%, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(circle at 90% 55%, rgba(224, 242, 254, 0.4) 0%, rgba(255, 255, 255, 0) 55%);
+}
+
+/* Technical Blueprint Grid Boxes (Crisp graph paper boxes matching reference) */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(11, 94, 208, 0.085) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 94, 208, 0.085) 1px, transparent 1px);
+  background-size: 52px 52px;
+  background-position: center top;
+}
+
+@media (max-width: 767.98px) {
+  .hero-section::after {
+    background-size: 38px 38px;
+  }
 }
 
 .hero-inner-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   align-items: center;
   gap: 3rem;
