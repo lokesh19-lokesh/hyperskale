@@ -677,7 +677,7 @@ ul, ol {
 
 /* --------------------------------------------------------------------------
    HyperScalar Technologies — Cybernetic Cloud Architecture Visualizer
-   Matches Picture 1: Futuristic Deep Navy Constellation Mesh & Orbit Card
+   Matches Picture 2: Rich Sapphire & Cobalt Blue Constellation Mesh & Orbit Card
    -------------------------------------------------------------------------- */
 .cyber-hero-card {
   position: relative;
@@ -688,13 +688,18 @@ ul, ol {
   margin-left: auto;
   margin-right: auto;
   border-radius: 20px;
-  background: radial-gradient(circle at 50% 48%, #08214f 0%, #030d24 60%, #010614 100%);
-  border: 1px solid rgba(56, 189, 248, 0.32);
+  background: #031336;
+  background-image: 
+    radial-gradient(circle at 50% 46%, #0d429a 0%, #082a68 32%, #041a46 65%, #020c24 100%),
+    linear-gradient(rgba(29, 122, 252, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 122, 252, 0.12) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+  border: 1.5px solid rgba(29, 122, 252, 0.55);
   box-shadow: 
-    0 24px 50px -12px rgba(2, 6, 23, 0.85),
-    0 0 35px -5px rgba(11, 94, 208, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 0 30px rgba(7, 30, 80, 0.5);
+    0 25px 60px -12px rgba(2, 6, 23, 0.85),
+    0 0 50px rgba(26, 115, 232, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 0 40px rgba(8, 42, 110, 0.45);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -706,11 +711,11 @@ ul, ol {
 }
 
 .cyber-hero-card:hover {
-  border-color: rgba(56, 189, 248, 0.5);
+  border-color: rgba(56, 189, 248, 0.75);
   box-shadow: 
-    0 30px 60px -12px rgba(2, 6, 23, 0.95),
-    0 0 45px -5px rgba(14, 165, 233, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    0 30px 65px -12px rgba(2, 6, 23, 0.95),
+    0 0 55px rgba(29, 122, 252, 0.55),
+    inset 0 1px 1px rgba(255, 255, 255, 0.28);
 }
 
 /* Background Constellation & Radar SVG Overlay */
@@ -730,19 +735,96 @@ ul, ol {
   display: block;
 }
 
-/* Orbital Beacons Animation */
+/* SVG Animations: Rotating Orbits, Scanner & Beacons */
+.cyber-ambient-glow {
+  animation: ambientGlowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes ambientGlowPulse {
+  0% { opacity: 0.8; transform: scale(0.96); transform-origin: 250px 245px; }
+  100% { opacity: 1; transform: scale(1.05); transform-origin: 250px 245px; }
+}
+
+.cyber-radar-outer-group {
+  transform-origin: 250px 245px;
+  animation: radarRotate 26s linear infinite;
+}
+
+.cyber-radar-inner-group {
+  transform-origin: 250px 245px;
+  animation: radarRotateRev 32s linear infinite;
+}
+
+.cyber-radar-scanner {
+  transform-origin: 250px 245px;
+  animation: radarScannerSweep 9s linear infinite;
+}
+
+.cyber-beacons-orbit-group {
+  transform-origin: 250px 245px;
+  animation: beaconsRevolve 16s linear infinite;
+}
+
+@keyframes radarRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes radarRotateRev {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes radarScannerSweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes beaconsRevolve {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Orbital Beacons at 12 O'Clock Pulsing Glow */
 .orbital-beacon-outer {
-  animation: beaconPulse 2.4s ease-in-out infinite;
+  animation: beaconPulse 2s ease-in-out infinite;
 }
 
 .orbital-beacon-inner {
-  animation: beaconPulse 2.4s ease-in-out infinite 0.7s;
+  animation: beaconPulse 2s ease-in-out infinite 0.6s;
 }
 
 @keyframes beaconPulse {
-  0% { transform-origin: 250px 90px; opacity: 0.65; transform: scale(0.85); }
-  50% { transform-origin: 250px 90px; opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 8px #38bdf8); }
-  100% { transform-origin: 250px 90px; opacity: 0.65; transform: scale(0.85); }
+  0%, 100% {
+    opacity: 0.75;
+    transform: scale(0.9);
+    filter: drop-shadow(0 0 6px #38bdf8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+    filter: drop-shadow(0 0 14px #38bdf8) drop-shadow(0 0 22px #1d7afc);
+  }
+}
+
+/* Streaming Data on Constellation Links */
+.cyber-stream-line {
+  stroke-dasharray: 4 6;
+  animation: streamFlow 2.8s linear infinite;
+}
+
+@keyframes streamFlow {
+  to { stroke-dashoffset: -20; }
+}
+
+/* Twinkling Constellation Star Nodes */
+.star-twinkle-1 { animation: starTwinkle 2.8s ease-in-out infinite; }
+.star-twinkle-2 { animation: starTwinkle 3.6s ease-in-out infinite 0.8s; }
+.star-twinkle-3 { animation: starTwinkle 2.4s ease-in-out infinite 1.5s; }
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.85); transform-origin: center; }
+  50% { opacity: 1; transform: scale(1.35); transform-origin: center; filter: drop-shadow(0 0 8px #38bdf8); }
 }
 
 /* Floating Metric Cards Rows (2 Top, 2 Bottom) */
@@ -764,38 +846,64 @@ ul, ol {
   margin-bottom: 0.85rem;
 }
 
-/* Individual Metric Card */
+/* Gentle Anti-Phase Zero-G Floating HUD for the 4 Cards */
+.cyber-row-top #cardCloud {
+  animation: hudFloatA 4.2s ease-in-out infinite alternate;
+}
+
+.cyber-row-top #cardDbaas {
+  animation: hudFloatB 4.8s ease-in-out infinite alternate-reverse;
+}
+
+.cyber-row-bottom #cardMigration {
+  animation: hudFloatB 4.6s ease-in-out infinite alternate;
+}
+
+.cyber-row-bottom #cardEfficiency {
+  animation: hudFloatA 5.2s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes hudFloatA {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-3.5px); }
+}
+
+@keyframes hudFloatB {
+  0% { transform: translateY(-3px); }
+  100% { transform: translateY(1px); }
+}
+
+/* Individual Metric Card (Matches Picture 2 Royal Electric Blue) */
 .cyber-metric-card {
   position: relative;
-  background: rgba(6, 22, 58, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.38);
+  background: rgba(6, 24, 66, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid #1d7afc;
   border-radius: 14px;
-  padding: 0.75rem 0.9rem;
+  padding: 0.75rem 0.95rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   box-shadow: 
-    0 8px 20px -4px rgba(2, 6, 23, 0.6),
-    0 0 12px -2px rgba(11, 94, 208, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 10px 24px -4px rgba(2, 6, 23, 0.65),
+    0 0 16px rgba(29, 122, 252, 0.35),
+    inset 0 0 12px rgba(29, 122, 252, 0.15);
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
 .cyber-metric-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(56, 189, 248, 0.75);
+  border-color: #38bdf8;
   box-shadow: 
-    0 12px 26px -4px rgba(2, 6, 23, 0.75),
-    0 0 20px rgba(14, 165, 233, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 14px 28px -4px rgba(2, 6, 23, 0.8),
+    0 0 24px rgba(56, 189, 248, 0.55),
+    inset 0 0 16px rgba(56, 189, 248, 0.25);
 }
 
 .cyber-metric-card.is-dimmed {
-  opacity: 0.45;
-  border-color: rgba(56, 189, 248, 0.15);
+  opacity: 0.42;
+  border-color: rgba(29, 122, 252, 0.3);
   box-shadow: none;
 }
 
@@ -803,31 +911,32 @@ ul, ol {
   opacity: 1;
   border-color: #38bdf8;
   box-shadow: 
-    0 10px 24px -4px rgba(11, 94, 208, 0.5),
-    0 0 18px rgba(56, 189, 248, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 12px 28px -4px rgba(13, 110, 253, 0.6),
+    0 0 22px rgba(56, 189, 248, 0.5),
+    inset 0 0 14px rgba(56, 189, 248, 0.25);
 }
 
-/* Card Icon Box */
+/* Card Icon Box (Rounded Square with Neon Blue Outline) */
 .card-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(29, 122, 252, 0.14);
+  border: 1.5px solid #1d7afc;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #38bdf8;
   flex-shrink: 0;
-  box-shadow: inset 0 0 8px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 12px rgba(29, 122, 252, 0.25), inset 0 0 8px rgba(29, 122, 252, 0.18);
   transition: all 0.25s ease;
 }
 
 .cyber-metric-card:hover .card-icon-box {
-  background: rgba(56, 189, 248, 0.16);
+  background: rgba(29, 122, 252, 0.28);
   border-color: #38bdf8;
   color: #ffffff;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
 }
 
 /* Card Content Typography */
@@ -847,35 +956,46 @@ ul, ol {
 
 .card-label {
   font-family: 'IBM Plex Mono', monospace, sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: #cbd5e1;
-  letter-spacing: 0.04em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #dbeafe;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* Emerald Green Live Indicator Dot with Ping Ripple */
 .card-live-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 6px #10b981;
+  background: #00e676;
+  box-shadow: 0 0 8px #00e676;
   flex-shrink: 0;
+  position: relative;
   display: inline-block;
-  animation: dotPulse 2s infinite ease-in-out;
 }
 
-@keyframes dotPulse {
-  0%, 100% { opacity: 0.7; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.2); }
+.card-live-dot::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid #00e676;
+  animation: dotPulseRipple 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes dotPulseRipple {
+  0% { transform: scale(1); opacity: 0.9; }
+  70% { transform: scale(2.8); opacity: 0; }
+  100% { transform: scale(2.8); opacity: 0; }
 }
 
 .card-value {
   font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.01em;
@@ -900,69 +1020,87 @@ ul, ol {
 
 .badge-halo {
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.45) 0%, rgba(11, 94, 208, 0.15) 50%, transparent 75%);
-  filter: blur(14px);
+  background: radial-gradient(circle, rgba(29, 122, 252, 0.65) 0%, rgba(56, 189, 248, 0.25) 45%, transparent 75%);
+  filter: blur(16px);
   pointer-events: none;
-  animation: haloBreath 3.5s ease-in-out infinite alternate;
+  animation: haloPulse 3.5s ease-in-out infinite alternate;
 }
 
-@keyframes haloBreath {
-  0% { transform: scale(0.92); opacity: 0.7; }
-  100% { transform: scale(1.12); opacity: 1; }
+@keyframes haloPulse {
+  0% { transform: scale(0.9); opacity: 0.65; }
+  100% { transform: scale(1.15); opacity: 1; filter: blur(20px); }
 }
 
 .badge-outer-frame {
   padding: 6px;
-  border-radius: 26px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 24px;
+  background: rgba(29, 122, 252, 0.12);
+  border: 1.5px solid #1d7afc;
   box-shadow: 
-    0 10px 25px rgba(2, 6, 23, 0.6),
-    inset 0 0 14px rgba(56, 189, 248, 0.12);
+    0 12px 28px rgba(2, 6, 23, 0.65),
+    0 0 24px rgba(29, 122, 252, 0.45),
+    inset 0 0 16px rgba(29, 122, 252, 0.2);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  animation: framePulse 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes framePulse {
+  0% { border-color: #1d7afc; box-shadow: 0 0 20px rgba(29, 122, 252, 0.4); }
+  100% { border-color: #38bdf8; box-shadow: 0 0 32px rgba(56, 189, 248, 0.6); }
 }
 
 .cyber-center-badge:hover .badge-outer-frame {
-  transform: scale(1.05);
-  border-color: rgba(56, 189, 248, 0.55);
+  transform: scale(1.06);
+  border-color: #38bdf8;
 }
 
 .badge-inner-glass {
   width: 82px;
   height: 82px;
   border-radius: 20px;
-  background: linear-gradient(145deg, rgba(15, 45, 115, 0.88) 0%, rgba(6, 18, 48, 0.95) 100%);
-  border: 1.5px solid rgba(56, 189, 248, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(145deg, #0e3880 0%, #061c48 100%);
+  border: 1.5px solid #38bdf8;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 
-    0 0 25px rgba(11, 94, 208, 0.55),
-    inset 0 0 15px rgba(56, 189, 248, 0.25);
+    0 0 32px rgba(29, 122, 252, 0.65),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    inset 0 0 16px rgba(56, 189, 248, 0.3);
   transition: box-shadow 0.3s ease;
+  animation: badgeBreathing 4s ease-in-out infinite alternate;
+}
+
+@keyframes badgeBreathing {
+  0% {
+    box-shadow: 0 0 25px rgba(29, 122, 252, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 42px rgba(29, 122, 252, 0.85), 0 0 18px rgba(56, 189, 248, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  }
 }
 
 .cyber-center-badge:hover .badge-inner-glass {
   box-shadow: 
-    0 0 35px rgba(14, 165, 233, 0.75),
-    inset 0 0 20px rgba(56, 189, 248, 0.4);
+    0 0 45px rgba(56, 189, 248, 0.85),
+    inset 0 0 22px rgba(56, 189, 248, 0.5);
 }
 
 .badge-logo-svg {
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
   transition: transform 0.3s ease;
 }
 
 .cyber-center-badge:hover .badge-logo-svg {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
-/* Bottom Perspective Switcher Tabs */
+/* Bottom Perspective Switcher Tabs (Matches Picture 2) */
 .cyber-tabs-bar {
   position: relative;
   z-index: 6;
@@ -975,13 +1113,13 @@ ul, ol {
 }
 
 .cyber-tab-pill {
-  padding: 0.46rem 1.25rem;
+  padding: 0.48rem 1.35rem;
   border-radius: 9999px;
-  background: rgba(9, 24, 60, 0.7);
-  border: 1px solid rgba(56, 189, 248, 0.24);
-  color: #94a3b8;
+  background: rgba(6, 20, 52, 0.75);
+  border: 1.2px solid rgba(29, 122, 252, 0.35);
+  color: rgba(255, 255, 255, 0.75);
   font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -989,20 +1127,19 @@ ul, ol {
 }
 
 .cyber-tab-pill:hover {
-  background: rgba(14, 38, 88, 0.85);
-  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(14, 40, 95, 0.9);
+  border-color: rgba(29, 122, 252, 0.6);
   color: #ffffff;
 }
 
 .cyber-tab-pill.active {
-  background: #0b5ed0;
-  background: linear-gradient(135deg, #0b5ed0 0%, #0284c7 100%);
-  border-color: #38bdf8;
+  background: linear-gradient(135deg, #1d7afc 0%, #0b5ed7 100%);
+  border: 1.5px solid #60a5fa;
   color: #ffffff;
   font-weight: 600;
   box-shadow: 
-    0 0 16px rgba(11, 94, 208, 0.65),
-    0 0 6px rgba(56, 189, 248, 0.5);
+    0 0 18px rgba(29, 122, 252, 0.8),
+    0 0 32px rgba(13, 110, 253, 0.5);
 }
 
 /* Responsive Adaptations for Hero Visualizer */
