@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initBubbleAnimation();
   initHeroCyberVisualizer();
+  initStatCounters();
 });
 
 function initScrollAnimations() {
@@ -281,3 +282,176 @@ function initHeroCyberVisualizer() {
     setMode(modeKeys[currentIdx]);
   }, 6000);
 }
+
+/**
+ * HyperScalar Technologies — Interactive Stat Number Count-Up Animation
+ * Smoothly animates metrics (40%, Zero, <30 min, 24x7, etc.) with custom easing when scrolled into view.
+ */
+function initStatCounters() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const statElements = document.querySelectorAll('.stat-number, .dbaas-stat-num');
+  if (!statElements.length) return;
+
+  function parseStat(el) {
+    const rawText = (el.getAttribute('data-stat-target') || el.textContent).trim();
+
+    // 1. Check for duo compound counter: e.g., 24x7, 24/7
+    const duoMatch = rawText.match(/^(\d+)\s*([xX×/])\s*(\d+)$/);
+    if (duoMatch) {
+      return {
+        type: 'duo',
+        target1: parseInt(duoMatch[1], 10),
+        sep: duoMatch[2],
+        target2: parseInt(duoMatch[3], 10),
+        original: rawText
+      };
+    }
+
+    // 2. Check for text 'Zero'
+    if (rawText.toLowerCase() === 'zero') {
+      return {
+        type: 'countdown',
+        start: 9,
+        target: 0,
+        finalText: rawText,
+        original: rawText
+      };
+    }
+
+    // 3. Check for standard numeric with optional prefix & suffix: e.g., '40%', '<30 min', '4'
+    const stdMatch = rawText.match(/^([^0-9]*)(\d+(?:\.\d+)?)(.*)$/);
+    if (stdMatch) {
+      const hasDecimal = stdMatch[2].includes('.');
+      return {
+        type: 'standard',
+        prefix: stdMatch[1],
+        target: parseFloat(stdMatch[2]),
+        hasDecimal: hasDecimal,
+        suffix: stdMatch[3],
+        original: rawText
+      };
+    }
+
+    return null;
+  }
+
+  function easeOutQuart(x) {
+    return 1 - Math.pow(1 - x, 4);
+  }
+
+  function animateCounter(el, parsed, delay = 0) {
+    el.classList.remove('stat-counted');
+    const duration = 1600; // 1.6s smooth duration
+
+    // Initial value display before start
+    if (parsed.type === 'duo') {
+      el.textContent = `0${parsed.sep}0`;
+    } else if (parsed.type === 'countdown') {
+      el.textContent = `${parsed.start}`;
+    } else if (parsed.type === 'standard') {
+      el.textContent = `${parsed.prefix}0${parsed.suffix}`;
+    }
+
+    setTimeout(() => {
+      let startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutQuart(progress);
+
+        if (parsed.type === 'duo') {
+          const val1 = Math.round(parsed.target1 * eased);
+          const val2 = Math.round(parsed.target2 * eased);
+          el.textContent = `${val1}${parsed.sep}${val2}`;
+        } else if (parsed.type === 'countdown') {
+          if (progress < 0.88) {
+            const currentNum = Math.round(parsed.start * (1 - eased));
+            el.textContent = `${currentNum}`;
+          } else {
+            el.textContent = parsed.finalText;
+          }
+        } else if (parsed.type === 'standard') {
+          if (parsed.hasDecimal) {
+            const currentVal = (parsed.target * eased).toFixed(1);
+            el.textContent = `${parsed.prefix}${currentVal}${parsed.suffix}`;
+          } else {
+            const currentVal = Math.round(parsed.target * eased);
+            el.textContent = `${parsed.prefix}${currentVal}${parsed.suffix}`;
+          }
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = parsed.original;
+          el.classList.add('stat-counted');
+        }
+      }
+
+      requestAnimationFrame(step);
+    }, delay);
+  }
+
+  // Pre-parse all elements and save config
+  statElements.forEach(el => {
+    const config = parseStat(el);
+    if (config) {
+      el._statConfig = config;
+      // Click on parent card to replay animation
+      const card = el.closest('.stat-item') || el.parentElement;
+      if (card) {
+        card.addEventListener('click', () => {
+          animateCounter(el, config, 0);
+        });
+      }
+    }
+  });
+
+  if (!('IntersectionObserver' in window)) {
+    statElements.forEach((el, i) => {
+      if (el._statConfig) animateCounter(el, el._statConfig, i * 110);
+    });
+    return;
+  }
+
+  const animatedSet = new WeakSet();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animatedSet.has(entry.target)) {
+        animatedSet.add(entry.target);
+
+        let targets = [];
+        if (entry.target.matches('.stat-number, .dbaas-stat-num')) {
+          targets = [entry.target];
+        } else {
+          targets = Array.from(entry.target.querySelectorAll('.stat-number, .dbaas-stat-num'));
+        }
+
+        targets.forEach((statEl, idx) => {
+          if (statEl._statConfig) {
+            animateCounter(statEl, statEl._statConfig, idx * 110);
+          }
+        });
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    rootMargin: '0px 0px -20px 0px',
+    threshold: 0.15
+  });
+
+  const parentSections = document.querySelectorAll('.stats-section, .stats-grid-dbaas');
+  if (parentSections.length) {
+    parentSections.forEach(section => observer.observe(section));
+  } else {
+    statElements.forEach(el => observer.observe(el));
+  }
+}
+
