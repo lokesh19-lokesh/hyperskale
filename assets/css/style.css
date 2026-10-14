@@ -658,20 +658,21 @@ ul, ol {
 .dbaasnow-feature-img {
   width: 100%;
   height: auto;
+  background-color: #ffffff;
   border-radius: var(--radius-md, 16px);
-  border: 1px solid rgba(11, 94, 208, 0.18);
+  border: 1px solid rgba(11, 94, 208, 0.12);
   box-shadow: 
-    0 20px 45px -12px rgba(7, 44, 115, 0.14),
-    0 4px 16px -4px rgba(7, 44, 115, 0.06);
+    0 16px 36px -10px rgba(15, 23, 42, 0.08),
+    0 2px 8px -2px rgba(15, 23, 42, 0.04);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
 }
 
 .dbaasnow-feature-img:hover {
   transform: translateY(-3px);
-  border-color: rgba(11, 94, 208, 0.32);
+  border-color: rgba(11, 94, 208, 0.28);
   box-shadow: 
-    0 26px 55px -10px rgba(7, 44, 115, 0.20),
-    0 8px 24px -4px rgba(7, 44, 115, 0.08);
+    0 22px 48px -10px rgba(15, 23, 42, 0.12),
+    0 4px 12px -2px rgba(15, 23, 42, 0.06);
 }
 
 /* --------------------------------------------------------------------------
