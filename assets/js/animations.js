@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBubbleAnimation();
   initHeroCyberVisualizer();
   initStatCounters();
+  initEngagementTimelineSync();
 });
 
 function initScrollAnimations() {
@@ -18,7 +19,7 @@ function initScrollAnimations() {
 
   // Select key cards and sections
   const animatedElements = document.querySelectorAll(
-    '.service-card, .work-step-item, .stat-item, .contact-aside-box, .stats-grid-dbaas > div'
+    '.service-card, .work-step-item, .engagement-phase-card, .stat-item, .contact-aside-box, .stats-grid-dbaas > div'
   );
 
   if (!('IntersectionObserver' in window)) {
@@ -454,4 +455,41 @@ function initStatCounters() {
     statElements.forEach(el => observer.observe(el));
   }
 }
+
+/**
+ * HyperScalar Technologies — Interactive Engagement Timeline Sync
+ * Synchronizes hover states between horizontal timeline nodes and delivery phase cards.
+ */
+function initEngagementTimelineSync() {
+  const cards = document.querySelectorAll('.engagement-phase-card');
+  const nodes = document.querySelectorAll('.timeline-node');
+  if (!cards.length || !nodes.length) return;
+
+  cards.forEach(card => {
+    const step = card.getAttribute('data-step');
+    const matchingNode = document.querySelector(`.timeline-node[data-step="${step}"]`);
+
+    card.addEventListener('mouseenter', () => {
+      if (matchingNode) matchingNode.classList.add('is-active');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      if (matchingNode) matchingNode.classList.remove('is-active');
+    });
+  });
+
+  nodes.forEach(node => {
+    const step = node.getAttribute('data-step');
+    const matchingCard = document.querySelector(`.engagement-phase-card[data-step="${step}"]`);
+
+    node.addEventListener('mouseenter', () => {
+      if (matchingCard) matchingCard.classList.add('is-active');
+    });
+
+    node.addEventListener('mouseleave', () => {
+      if (matchingCard) matchingCard.classList.remove('is-active');
+    });
+  });
+}
+
 
