@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Not Found — HyperScalar Technologies</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+  <!-- Instant Clean-URL Auto-Recovery for GitHub Pages & Static Hosts -->
+  <script>
+    (function () {
+      var path = window.location.pathname;
+      var cleanRoutes = ['services', 'dbaasnow', 'growth', 'about', 'contact'];
+      for (var i = 0; i < cleanRoutes.length; i++) {
+        var r = cleanRoutes[i];
+        var regex = new RegExp('/' + r + '(/|\\.html|$)');
+        if (regex.test(path) && !path.endsWith('/' + r + '.html')) {
+          var target = path.replace(new RegExp('/' + r + '(/|$)'), '/' + r + '.html');
+          window.location.replace(target);
+          return;
+        }
+      }
+    })();
+  </script>
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
+    rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/responsive.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="site-container">
+      <a class="brand-logo-link" href="/" aria-label="Hyperscalar Technologies">
+        <svg viewBox="0 0 32 32" width="40" height="40" style="width:40px;height:40px;flex-shrink:0;" class="logo-svg"
+          role="img" aria-label="Hyperscalar Technologies" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="2" width="6" height="28" fill="#072c73" class="fill-brand-deep"></rect>
+          <rect x="25" y="2" width="6" height="28" fill="#0b5ed0" class="fill-brand"></rect>
+          <rect x="9" y="19" width="6" height="5" fill="#0b5ed0" class="fill-brand" opacity="0.45"></rect>
+          <rect x="17" y="14" width="6" height="5" fill="#0b5ed0" class="fill-brand" opacity="0.75"></rect>
+          <rect x="9" y="14" width="6" height="5" fill="#0b5ed0" class="fill-brand"></rect>
+          <rect x="17" y="9" width="6" height="5" fill="#072c73" class="fill-brand-deep"></rect>
+        </svg>
+        <span class="brand-name">
+          <span class="brand-name-deep">Hyperscalar</span>
+          <span class="brand-name-brand">Technologies</span>
+        </span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="/services" class="nav-link-custom">Services</a>
+        <a href="/dbaasnow" class="nav-link-custom">DBaasNow</a>
+        <a href="/growth" class="nav-link-custom">Growth &amp; Marketing</a>
+        <a href="/about" class="nav-link-custom">About</a>
+      </nav>
+      <div class="header-cta-wrapper">
+        <a href="/contact" class="btn-header-cta">Talk to an expert</a>
+      </div>
+      <button type="button" aria-label="Toggle navigation" aria-expanded="false" class="mobile-nav-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-menu" style="width:20px;height:20px;" aria-hidden="true">
+          <path d="M4 5h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 19h16"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-menu-overlay" aria-hidden="true"></div>
+  <div class="mobile-menu-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <nav class="mobile-nav-list">
+      <a href="/services" class="mobile-nav-link">Services</a>
+      <a href="/dbaasnow" class="mobile-nav-link">DBaasNow</a>
+      <a href="/growth" class="mobile-nav-link">Growth &amp; Marketing</a>
+      <a href="/about" class="mobile-nav-link">About</a>
+    </nav>
+    <div class="mobile-menu-cta">
+      <a href="/contact" class="btn-brand-primary w-100">Talk to an expert</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section-padding" style="min-height: 60vh; display: flex; align-items: center;">
+      <div class="site-container text-center py-5">
+        <p class="section-tag">Error 404</p>
+        <h1 class="page-title mx-auto mb-3" style="font-size: 2.75rem;">Page Not Found</h1>
+        <p class="lead-text mx-auto mb-4" style="max-width: 34rem;">
+          The page you requested could not be located. It may have moved or been updated.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="/" class="btn-brand-primary">Return to Homepage</a>
+          <a href="/services" class="btn-outline-ink">Explore Services</a>
+          <a href="/contact" class="btn-outline-ink">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="site-container footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-title">
+            <svg viewBox="0 0 32 32" width="28" height="28" style="width:28px;height:28px;flex-shrink:0;" class="logo-svg"
+              role="img" aria-label="Hyperscalar Technologies" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="2" width="6" height="28" fill="#072c73" class="fill-brand-deep"></rect>
+              <rect x="25" y="2" width="6" height="28" fill="#0b5ed0" class="fill-brand"></rect>
+              <rect x="9" y="19" width="6" height="5" fill="#0b5ed0" class="fill-brand" opacity="0.45"></rect>
+              <rect x="17" y="14" width="6" height="5" fill="#0b5ed0" class="fill-brand" opacity="0.75"></rect>
+              <rect x="9" y="14" width="6" height="5" fill="#0b5ed0" class="fill-brand"></rect>
+              <rect x="17" y="9" width="6" height="5" fill="#072c73" class="fill-brand-deep"></rect>
+            </svg>
+            <span>HyperScalar Technologies</span>
+          </div>
+          <p class="footer-brand-desc">Enterprise IT modernization, managed services, data platforms and digital transformation.</p>
+          <div class="footer-contact-info">
+            <p class="footer-info-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-map-pin" aria-hidden="true">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              Asia Pacific
+            </p>
+            <a href="mailto:chakri@hyperskale.in" class="footer-info-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-mail" aria-hidden="true">
+                <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              </svg>
+              chakri@hyperskale.in
+            </a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-col-title">Explore</p>
+          <ul class="footer-nav-list">
+            <li><a href="/services">Services</a></li>
+            <li><a href="/dbaasnow">DBaasNow partnership</a></li>
+            <li><a href="/growth">Growth &amp; digital marketing</a></li>
+            <li><a href="/about">About us</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col-title">Partnership</p>
+          <p class="footer-text">Exclusive Asia Pacific partner for <a href="https://dbaasnow.com/welcome/" target="_blank" rel="noopener noreferrer">DBaasNow</a>, the unified database lifecycle and service management platform.</p>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <span>© 2026 HyperScalar Technologies. All rights reserved.</span>
+        <span>Design by <a href="https://thebubblesmedia.com/" target="_blank" rel="noopener noreferrer"
+            class="bubbles-media-link">The Bubbles Media</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./assets/js/bootstrap.bundle.min.js" defer></script>
+  <script src="./assets/js/main.js" defer></script>
+</body>
+
+</html>

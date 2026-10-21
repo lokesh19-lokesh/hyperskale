@@ -1,19 +1,35 @@
-# Apache Rewrite Rules for Clean URLs
+# --------------------------------------------------------------------------
+# HyperScalar Technologies — Apache Configuration
+# Clean URLs, MultiViews protection, 404 Error handling, and Browser Caching
+# --------------------------------------------------------------------------
+
+# 1. Prevent MultiViews from conflicting with mod_rewrite (critical for cPanel / Apache)
+Options -MultiViews +FollowSymLinks
+
+# 2. Prevent directory indexing
+Options -Indexes
+
+# 3. Clean URLs & Rewriting
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Redirect .html to clean URL (except existing files if directly requested)
-  RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
-  RewriteRule ^ /%1 [NC,L,R=301]
+  # Redirect direct requests for *.html to clean URL (only on initial external request)
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteCond %{THE_REQUEST} /([^\s?]+)\.html[\s?] [NC]
+  RewriteRule ^ %1 [R=301,L]
 
-  # Resolve clean URL to .html file if it exists
+  # Resolve clean URL to .html file if file exists (checks filesystem and doc root)
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME}\.html -f
-  RewriteRule ^(.*)$ $1.html [L]
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f [OR]
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.html [L]
 </IfModule>
 
-# Browser Caching
+# 4. Custom 404 Fallback
+ErrorDocument 404 /404.html
+
+# 5. Browser Caching
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpg "access plus 1 year"

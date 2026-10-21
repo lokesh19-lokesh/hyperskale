@@ -100,18 +100,25 @@ function initMobileNavigation() {
  * Set active navigation item based on current page URL
  */
 function initActiveNav() {
-  const currentPath = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+  const currentPath = window.location.pathname
+    .replace(/\/index\.html$/, '')
+    .replace(/\.html$/, '')
+    .replace(/\/$/, '');
   const navLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav-link');
 
   navLinks.forEach(link => {
     const href = link.getAttribute('href');
     if (!href) return;
-    const cleanHref = href.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+    const cleanHref = href
+      .replace(/\/index\.html$/, '')
+      .replace(/\.html$/, '')
+      .replace(/\/$/, '');
 
-    if (currentPath === cleanHref || (currentPath === '' && cleanHref === '/') || (currentPath === '/' && cleanHref === '/')) {
-      link.classList.add('active');
-      link.setAttribute('aria-current', 'page');
-    } else if (cleanHref !== '/' && currentPath.endsWith(cleanHref)) {
+    const isMatch = (currentPath === cleanHref) ||
+      (currentPath === '' && (cleanHref === '' || cleanHref === '/')) ||
+      (cleanHref !== '' && cleanHref !== '/' && currentPath.endsWith(cleanHref));
+
+    if (isMatch) {
       link.classList.add('active');
       link.setAttribute('aria-current', 'page');
     }
@@ -120,33 +127,86 @@ function initActiveNav() {
 
 /**
  * Seamless static/clean URL resolution:
- * - If viewed directly from filesystem (file://), links point directly to relative .html files.
- * - If running on a local development server without server-side rewrite rules (like python http.server),
- *   links automatically resolve to .html files.
- * - In production environments (Apache, cPanel, Vercel, Netlify), clean URLs are served natively via
- *   .htaccess, vercel.json, and _redirects.
+ * Handles:
+ * 1. GitHub Pages (e.g., https://username.github.io/repo-name/):
+ *    - Automatically detects repository subfolder from URL pathname.
+ *    - Replaces root-relative links (/services) with repo-relative static links (/repo-name/services.html)
+ *      so navigation NEVER jumps to username.github.io/services (which causes 404).
+ * 2. Local filesystem (file://):
+ *    - Replaces root-relative links with relative .html files.
+ * 3. Local dev server without URL rewrite (e.g. python -m http.server):
+ *    - Appends .html to root-relative routes so static dev servers work out-of-the-box.
+ * 4. Fallback link click interceptor:
+ *    - Intercepts clicks on internal links to guarantee proper routing even if dynamically loaded.
  */
 function initEnvironmentRouting() {
   const isLocalFile = window.location.protocol === 'file:';
   const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isGitHubPages = window.location.hostname.endsWith('github.io');
 
-  if (isLocalFile || isLocalDev) {
-    const routeMap = {
-      '/': isLocalFile ? 'index.html' : '/',
-      '/services': isLocalFile ? 'services.html' : '/services.html',
-      '/dbaasnow': isLocalFile ? 'dbaasnow.html' : '/dbaasnow.html',
-      '/growth': isLocalFile ? 'growth.html' : '/growth.html',
-      '/about': isLocalFile ? 'about.html' : '/about.html',
-      '/contact': isLocalFile ? 'contact.html' : '/contact.html'
-    };
-
-    document.querySelectorAll('a[href^="/"]').forEach(link => {
-      const href = link.getAttribute('href');
-      if (routeMap[href]) {
-        link.setAttribute('href', routeMap[href]);
-      }
-    });
+  // Detect repository base path on GitHub Pages (e.g., '/hyperskale')
+  let repoBase = '';
+  if (isGitHubPages) {
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    if (segments.length > 0 && !segments[0].endsWith('.html')) {
+      repoBase = '/' + segments[0];
+    }
   }
+
+  const cleanRoutes = ['services', 'dbaasnow', 'growth', 'about', 'contact'];
+
+  function resolveRoute(href) {
+    if (!href || !href.startsWith('/')) return href;
+
+    // Normalizing root route
+    if (href === '/' || href === '/index' || href === '/index.html') {
+      if (isLocalFile) return 'index.html';
+      if (isGitHubPages) return repoBase ? `${repoBase}/index.html` : '/index.html';
+      return '/';
+    }
+
+    // Match against known pages
+    for (const route of cleanRoutes) {
+      if (href === `/${route}` || href === `/${route}/` || href === `/${route}.html`) {
+        if (isLocalFile) return `${route}.html`;
+        if (isGitHubPages) return `${repoBase}/${route}.html`;
+        if (isLocalDev) return `/${route}.html`;
+        return `/${route}`;
+      }
+    }
+
+    // For any other root-relative link on GitHub Pages, prepend repoBase
+    if (isGitHubPages && repoBase && !href.startsWith(repoBase + '/')) {
+      return repoBase + href;
+    }
+
+    return href;
+  }
+
+  // Update all existing link elements
+  document.querySelectorAll('a[href^="/"]').forEach(link => {
+    const rawHref = link.getAttribute('href');
+    const resolved = resolveRoute(rawHref);
+    if (resolved && resolved !== rawHref) {
+      link.setAttribute('href', resolved);
+    }
+  });
+
+  // Global click interception fallback for bulletproof navigation
+  document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a');
+    if (!anchor) return;
+    const href = anchor.getAttribute('href');
+    if (!href) return;
+
+    if (isGitHubPages || isLocalFile || isLocalDev) {
+      if (href.startsWith('/') && !href.startsWith(repoBase + '/') && repoBase) {
+        e.preventDefault();
+        const target = resolveRoute(href);
+        window.location.href = target;
+      }
+    }
+  });
 }
 
 /**
