@@ -210,7 +210,8 @@ function initEnvironmentRouting() {
 }
 
 /**
- * Contact Form Client-side Validation & Feedback
+ * Contact Form Client-side Validation & Email Submission
+ * Submits form data to connect.hyperscalar@gmail.com via FormSubmit AJAX
  */
 function initContactForm() {
   const form = document.querySelector('form.contact-form');
@@ -221,13 +222,21 @@ function initContactForm() {
   feedbackBox.setAttribute('role', 'alert');
   form.appendChild(feedbackBox);
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const nameInput = form.querySelector('[name="name"]');
     const emailInput = form.querySelector('[name="email"]');
     const companyInput = form.querySelector('[name="company"]');
+    const countryInput = form.querySelector('[name="country"]');
+    const interestSelect = form.querySelector('[name="interest"]');
     const messageInput = form.querySelector('[name="message"]');
+    const honeyInput = form.querySelector('[name="_honey"]');
+
+    // Honeypot spam check: if filled by automated bots, reject silently
+    if (honeyInput && honeyInput.value) {
+      return;
+    }
 
     let errors = [];
 
@@ -260,24 +269,86 @@ function initContactForm() {
       return;
     }
 
-    // Success State
-    const submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
+    // Local file protocol warning
+    if (window.location.protocol === 'file:') {
+      feedbackBox.className = 'form-feedback error';
+      feedbackBox.innerHTML = '<strong>Notice:</strong> Email form services (FormSubmit) require pages to be accessed via a web server (such as <code>http://localhost:8080</code> or your deployed website URL). Forms cannot be submitted from <code>file:///</code> links.';
+      feedbackBox.style.display = 'block';
+      feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
     }
 
-    setTimeout(() => {
-      feedbackBox.className = 'form-feedback success';
-      feedbackBox.innerHTML = 'Thank you! Your message has been received. Our team will get back to you shortly.';
+    // Loading State
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnContent = submitBtn ? submitBtn.innerHTML : 'Send enquiry';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <span class="spinner-inline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="6"></line>
+            <line x1="12" y1="18" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="6" y2="12"></line>
+            <line x1="18" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+          </svg>
+        </span>
+        Sending enquiry...
+      `;
+    }
+
+    feedbackBox.style.display = 'none';
+
+    const payload = {
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim(),
+      company: companyInput.value.trim(),
+      country: countryInput ? countryInput.value.trim() : '',
+      interest: interestSelect ? interestSelect.value : '',
+      message: messageInput.value.trim(),
+      _subject: `New Contact Enquiry from ${nameInput.value.trim()} (${companyInput.value.trim()})`,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/connect.hyperscalar@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (data && (data.success === 'true' || data.success === true)) {
+        feedbackBox.className = 'form-feedback success';
+        feedbackBox.innerHTML = '<strong>Thank you!</strong> Your message has been sent successfully. Our team will get back to you shortly.';
+        feedbackBox.style.display = 'block';
+        form.reset();
+      } else if (data && data.message && (data.message.toLowerCase().includes('activate') || data.message.toLowerCase().includes('activation'))) {
+        feedbackBox.className = 'form-feedback error';
+        feedbackBox.innerHTML = '<strong>Form Activation Required:</strong> A one-time activation email has been sent to <strong>connect.hyperscalar@gmail.com</strong>.<br/>Please check your inbox (including <em>Promotions</em>, <em>Spam</em>, or <em>All Mail</em>) and click the <strong>"Activate Form"</strong> button to enable submissions.';
+        feedbackBox.style.display = 'block';
+      } else {
+        throw new Error(data && data.message ? data.message : 'Submission failed.');
+      }
+    } catch (err) {
+      feedbackBox.className = 'form-feedback error';
+      feedbackBox.innerHTML = `<strong>Error sending message:</strong> ${err.message || 'Please check your internet connection'}.<br/>Alternatively, please email us directly at <a href="mailto:connect.hyperscalar@gmail.com" style="text-decoration: underline; color: inherit; font-weight: 600;">connect.hyperscalar@gmail.com</a>.`;
       feedbackBox.style.display = 'block';
-      form.reset();
+    } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Send enquiry';
+        submitBtn.innerHTML = originalBtnContent;
       }
       feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 600);
+    }
   });
 }
 

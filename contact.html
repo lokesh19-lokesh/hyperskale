@@ -160,7 +160,13 @@
       <div class="site-container">
         <div class="contact-layout-grid">
           <!-- Form -->
-          <form class="contact-form" novalidate>
+          <form class="contact-form" action="https://formsubmit.co/connect.hyperscalar@gmail.com" method="POST" novalidate>
+            <!-- FormSubmit Email Delivery Configuration -->
+            <input type="hidden" name="_subject" value="New Contact Enquiry — HyperScalar Technologies" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <!-- Honeypot spam filter (hidden from human users) -->
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="form-group-grid">
               <div>
                 <label for="name" class="form-label-custom">Full name</label>
